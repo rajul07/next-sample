@@ -9,7 +9,28 @@ type Props = {
 }
 
 const WithServerSideProps = ({ items }: Props) => {
-  console.log(items)
+  const filtereditem = items.filter(obj => {
+    const imageArr = [];
+    const nonImageArr = [];
+    obj.families.map(x => {
+      if (x.baseVariantImages.length > 0) {
+        imageArr.push(x);
+      }
+      else {
+        nonImageArr.push(x)
+      }
+    });
+    if (imageArr.length > 0) {
+      const finalArr = imageArr.concat(nonImageArr);
+      obj.families = finalArr;
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  console.log(filtereditem);  
+  console.log(items);  
   
   return (
 
